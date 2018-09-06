@@ -239,7 +239,7 @@ HAINDL = [ ["0 - The Fool: Act impulsively, follow your feelings, surprise, wond
                 ["Daughter of Stones in the West (White Buffalo Woman): Willingness to take responsibility for something greater than oneself. Love, courage, and dedication. Inner beauty.", "https://i.imgur.com/kjNozqz.jpg"],
                 ["Son of Stones in the West (Chief Seattle): Taking action to make positive change - with the benefit of the next seven generations in mind.", "https://i.imgur.com/EjnAIew.jpg"],
                 ["Mother of Stones in the West (Spider Woman): Serene, probably older woman. Self-confidence.", "https://i.imgur.com/BInYnhc.jpg"],
-                ["Father of Stones in the West (Old Man): Fundamental male principle. Someone who cares deeply for family and for nature. Hard Worker.", "https://i.imgur.com/2yTSrl1.jpg"]
+                ["Father of Stones in the West (Old Man): Fundamental male principle. Someone who cares deeply for family and for nature. Hard Worker.", "https://i.imgur.com/2yTSrl1.jpg"],
 			          ["[REVERSED] 0 - The Fool: Difficulty believing in your instincts, fear of stepping into the unknown, do not be reckless.", "https://i.imgur.com/VDlMNqF.jpg"],
                 ["[REVERSED] I - The Magician: Natural expression of energy blocked. Inner resistance. Arrogance. Misuse of personal power.", "https://i.imgur.com/Nn26nws.jpg"],
                 ["[REVERSED] II - The High Priestess: A time for action, for involvements with others. Commitment in romance.", "https://i.imgur.com/JAYpLYN.jpg"],
