@@ -45,7 +45,7 @@ AsyncIOMainLoop().install()
 #                                                                                                                                                                                     
 
 
-
+imagenamecounter = 0
 
 with open("client_data.json", "r") as f:
   clientdata = json.load(f)
@@ -54,7 +54,7 @@ global wordlist
 with open("words", "r") as f:
     wordlist = f.read().split("\n")
 
-async def celticcross():
+def celticcross():
   cardwidth = 280
   cardheight = 417
   horizontalspace = 10
@@ -90,20 +90,18 @@ async def celticcross():
 def containsflag(message, flag):
   msg = message.lower()
   if flag in msg:
-    try:
-      if msg[msg.index(flag)-1].isalphanum():
+    if msg.index(flag) > 0:
+      if msg[msg.index(flag)-1].isalnum():
         return False
-    except KeyError:
-      pass
     try:
-      if msg[msg.index(flag)+len(flag)].isalphanum():
+      if msg[msg.index(flag)+len(flag)].isalnum():
         return False
-    except KeyError:
+    except IndexError:
       pass
     return True
   return False
 
-async def selectresponse(message, medium):
+def selectresponse(message, medium):
   if containsflag(message, "trng"):
     try:
       random.seed(randomorg.rrandom())
@@ -116,7 +114,7 @@ async def selectresponse(message, medium):
     return sentence
 
   if containsflag(message, "celtic cross"):
-    link = await celticcross()
+    link = celticcross()
     if medium == "irc":
       return "Cast cards: {0} (Meanings: https://goo.gl/ZEwmwd".format(link)
     elif medium == "discord":
@@ -136,7 +134,7 @@ async def selectresponse(message, medium):
   else:
     cards = [random.choice(deck)]
   if medium == "irc":
-    return " ".join(["{0} { {1} }".format(card[0], card[1]) for card in cards])
+    return " ".join([card[0] + " { " + card[1] + " }" for card in cards])
   elif medium == "discord":
     return " ".join(["{0} <{1}>".format(card[0], card[1]) for card in cards])
   else:
@@ -149,7 +147,9 @@ discordclient = discord.Client()
 @discordclient.event
 @asyncio.coroutine
 def on_message(message):
-  if containsflag(message.content, "mog") or discordclient.user.mentioned_in(message=message) or isinstance(message.channel, discord.PrivateChannel) and not message.author.bot:
+  if containsflag(message.content, "mog")  or containsflag(message.content, "mogsamez")\
+      or discordclient.user.mentioned_in(message=message) or isinstance(message.channel, discord.PrivateChannel)\
+      and not message.author.bot:
     try:
       response = message.author.mention + ": " + selectresponse(message.content, "discord")
       yield from discordclient.send_message(message.channel, response)
@@ -161,7 +161,7 @@ class IRCClient(pydle.Client):
     self.join('#/div/ination')
 
   def on_channel_message(self, channel, nick, message):
-    if containsflag(message.content, "mog"):
+    if containsflag(message, "mog") or containsflag(message, "mogsamez"):
       response = nick + ": " + selectresponse(message, "irc")
       self.message(channel, response)
 
@@ -171,3 +171,6 @@ class IRCClient(pydle.Client):
 
 ircclient = IRCClient('Mogsamez', realname='Mogsamez')
 ircclient.connect('irc.us.sorcery.net', 6667)
+
+
+discordclient.run(clientdata["token"])
